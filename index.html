@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +14,6 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
     <header>
         <div class="container header-content">
@@ -39,7 +37,6 @@
             </div>
         </div>
     </header>
-
     <nav class="category-nav">
         <div class="container">
             <button class="filter-btn active" data-category="All">All</button>
@@ -49,7 +46,6 @@
             <button class="filter-btn" data-category="Fruits">Fruits</button>
         </div>
     </nav>
-
     <main class="container">
         <!-- Seller Dashboard (Hidden by default) -->
         <div id="sellerDashboard" style="display: none; margin-bottom: 2rem;">
@@ -59,12 +55,10 @@
             <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #E5E7EB;">
             <h2>All Market Items</h2>
         </div>
-
         <div id="productsGrid" class="products-grid">
             <!-- Products will be injected here by JS -->
         </div>
     </main>
-
     <!-- Seller Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
@@ -83,7 +77,6 @@
             </form>
         </div>
     </div>
-
     <!-- Cart Modal -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
@@ -101,7 +94,6 @@
             </div>
         </div>
     </div>
-
     <!-- Checkout Modal -->
     <div id="checkoutModal" class="modal">
         <div class="modal-content">
@@ -129,7 +121,6 @@
             </form>
         </div>
     </div>
-
     <!-- Add Item Modal -->
     <div id="addItemModal" class="modal">
         <div class="modal-content">
@@ -167,7 +158,6 @@
             </form>
         </div>
     </div>
-
     <!-- Update Stock Modal -->
     <div id="updateStockModal" class="modal">
         <div class="modal-content">
@@ -190,8 +180,6 @@
             </form>
         </div>
     </div>
-
     <script src="app.js"></script>
 </body>
-
 </html>
