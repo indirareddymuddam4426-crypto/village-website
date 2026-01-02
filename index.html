@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Village Marketplace</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-store-alt"></i>
+                <h1>Village Market</h1>
+            </div>
+            <div class="header-actions">
+                <button id="sellerLoginBtn" class="btn-secondary">Seller Login</button>
+                <div id="sellerInfo" style="display: none; align-items: center; gap: 1rem;">
+                    <span id="welcomeMsg" style="font-weight: 600; color: var(--primary-color);"></span>
+                    <button id="sellerLogoutBtn" class="btn-text">Logout</button>
+                </div>
+                <button id="openCartBtn" class="btn-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartBadge" class="badge">0</span>
+                </button>
+                <button id="openModalBtn" class="btn-primary">
+                    <i class="fas fa-plus"></i> Sell Item
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="category-nav">
+        <div class="container">
+            <button class="filter-btn active" data-category="All">All</button>
+            <button class="filter-btn" data-category="Farming">Farming</button>
+            <button class="filter-btn" data-category="Milk">Milk</button>
+            <button class="filter-btn" data-category="Vegetables">Vegetables</button>
+            <button class="filter-btn" data-category="Fruits">Fruits</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Seller Dashboard (Hidden by default) -->
+        <div id="sellerDashboard" style="display: none; margin-bottom: 2rem;">
+            <h2>My Dashboard</h2>
+            <p style="color: var(--text-light); margin-bottom: 1rem;">Manage your listed products.</p>
+            <div id="dashboardGrid" class="products-grid"></div>
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #E5E7EB;">
+            <h2>All Market Items</h2>
+        </div>
+
+        <div id="productsGrid" class="products-grid">
+            <!-- Products will be injected here by JS -->
+        </div>
+    </main>
+
+    <!-- Seller Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Seller Login</h2>
+                <span class="close-login">&times;</span>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginName">Enter Your Name</label>
+                    <input type="text" id="loginName" placeholder="e.g. Ramesh" required>
+                    <small style="color: var(--text-light); display: block; margin-top: 0.5rem;">Enter the exact name
+                        you used when listing items.</small>
+                </div>
+                <button type="submit" class="btn-primary full-width">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Your Cart</h2>
+                <span class="close-cart">&times;</span>
+            </div>
+            <div id="cartItems" class="cart-items">
+                <!-- Cart items injected here -->
+                <div class="empty-cart-msg">Your cart is empty</div>
+            </div>
+            <div class="cart-footer">
+                <div class="total-price">Total: <span id="cartTotal">₹0</span></div>
+                <button id="checkoutBtn" class="btn-primary full-width" disabled>Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <span class="close-checkout">&times;</span>
+            </div>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label for="buyerName">Name</label>
+                    <input type="text" id="buyerName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="buyerVillage">Village/Address</label>
+                    <input type="text" id="buyerVillage" placeholder="Village Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="buyerPhone">Phone Number</label>
+                    <input type="tel" id="buyerPhone" placeholder="10-digit Mobile Number" required>
+                </div>
+                <div class="order-summary">
+                    <p>Total to Pay: <strong id="checkoutTotal">₹0</strong></p>
+                </div>
+                <button type="submit" class="btn-primary full-width">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Item Modal -->
+    <div id="addItemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sell Your Product</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <form id="addItemForm">
+                <div class="form-group">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" id="itemName" placeholder="e.g. Fresh Milk" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemPrice">Price (₹)</label>
+                    <input type="number" id="itemPrice" placeholder="e.g. 50" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemStock">Stock Quantity</label>
+                    <input type="number" id="itemStock" placeholder="e.g. 10" required min="1">
+                </div>
+                <div class="form-group">
+                    <label for="itemCategory">Category</label>
+                    <select id="itemCategory" required>
+                        <option value="Farming">Farming</option>
+                        <option value="Milk">Milk</option>
+                        <option value="Vegetables">Vegetables</option>
+                        <option value="Fruits">Fruits</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sellerName">Your Name</label>
+                    <input type="text" id="sellerName" placeholder="e.g. Ramesh" required>
+                </div>
+                <button type="submit" class="btn-primary full-width">List Item</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Update Stock Modal -->
+    <div id="updateStockModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Replenish Stock</h2>
+                <span class="close-update-stock">&times;</span>
+            </div>
+            <form id="updateStockForm">
+                <input type="hidden" id="updateStockId">
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" id="updateItemName" readonly disabled
+                        style="background-color: #f3f4f6; color: #6b7280;">
+                </div>
+                <div class="form-group">
+                    <label for="newStockQty">New Stock Quantity</label>
+                    <input type="number" id="newStockQty" required min="0">
+                </div>
+                <button type="submit" class="btn-primary full-width">Update Stock</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
